@@ -46,12 +46,18 @@
     // Use the proc filesystem to provide information about the system
 
         string line;
+        string line1;
+        string line2;
+        string line3;
         ifstream infile;
+        ifstream onfile;
+        ifstream xfile; 
         double btime;
-        double uptime;
+        string uptime;
         double stat;
         char time_information[200];
         char time_information2[200];
+        char time_information3[200];
         string ignore1,ignore2, ignore3;
         string cpu;
         string test;
@@ -60,6 +66,8 @@
         // double now = std::chrono::duration_cast<std::chrono::seconds>(std::chrono::system_clock::now().time_since_epoch()).count()
         //open the fikle
         infile.open("/proc/stat");
+
+       
         while (getline(infile, line)) {
             if(line.find("btime") == 0){
                 
@@ -69,22 +77,37 @@
                 store them in btime
                 */
                 sscanf(line.c_str(), "btime %lf", &btime);
-                //cout << line << endl;
+               
             }
+            
+            }
+            
+        infile.close();
+
+
+        //uptime
+        onfile.open("/proc/uptime");
+        while (getline(onfile, line1)) {
+            getline(onfile,uptime);
+            cout << line1<< endl;
+            break;
+            
+        }
+        onfile.close();
+
+        //cpu
+        xfile.open("/proc/stat");
+        while (getline(xfile, line2)) {
         
-            if(line.find("uptime") == 0){
-                sscanf(line.c_str(), "uptime %lf", &uptime);
-            }
-            if(line.find("cpu" == 0)){
-                //get first line
-                getline(infile,test);
+            if(line2.find("cpu") == 0){
+                getline(xfile,test);
                 break;
-                
-                }
             }
+        }
+        xfile.close();
 
-        
 
+        cout << "numbers" <<line1 <<endl;
         /*
                 Time since system last booted
         */
@@ -95,26 +118,40 @@
         //use strftime to format the time
         strftime(time_information, 200, "%Y-%m-%d %H:%M:%S", real_time);
         // print the time
-        cout << "Time since system last booted (yyyy-mm-dd hh:mm:ss): " << time_information << endl;
-
+        cout << "The time when system was last booted (yyyy-mm-dd hh:mm:ss): " << time_information << endl;
+        //cout << test << endl;
         
         /*
             amount of time since system last booted
         */
 
-        time_t time2 = (time_t)uptime;
-        struct tm *real_time2 = gmtime(&time2);
-        strftime(time_information2, 200, "%d:%H:%M:%S", real_time2); // format the time
-        cout << "Amount of time since system last booted (dd:hh:mm:ss): " << time_information2 << endl;
-        
-        
-        // cout << test << endl;
+        // time_t time2 = (time_t)uptime;
+        // struct tm *real_time2 = gmtime(&time2);
+        // strftime(time_information2, 200, "%m-%d:%H:%M:%S", real_time2); // format the time
+        // cout << "Amount of time since system last booted (dd:hh:mm:ss): " << time_information2 << endl;
+       
+        istringstream iss(test);
+        vector<string> cpu_vector;
+        string s;
+        while ( getline( iss, s,' ') ) {
+            cpu_vector.push_back(s);
+        } 
 
-        // istringstream iss(test);
-        // string s;
-        // while(getline(iss, s,' ')){
-        //     printf( "`%s'\n", s.c_str());
-        // }
+        //Amount of time that the CPU has spent in user mode and system mode
+        double cpu3 = stod(cpu_vector[3]);//system mode
+        double cpu1 = stod(cpu_vector[1]);//user mode
+        //cout << cpu3 << endl;
 
-        //cout << s[3] << endl;
+        time_t time3 = (time_t)cpu3;//system 
+        struct tm *real_time3 = gmtime(&time3);
+        strftime(time_information2, 200, "%Y-%m-%d %H:%M:%S", real_time3); // format the time
+        cout << "Amount of time that the CPU has spent in system mode (yyyy-mm-dd hh:mm:ss): " << time_information2 << endl;
+
+        //user mode
+        time_t time4 = (time_t)cpu1;//user
+        struct tm *real_time4 = gmtime(&time4);//user
+        strftime(time_information3, 200, "%Y-%m-%d %H:%M:%S", real_time4); 
+        cout << "Amount of time that the CPU has spent in user mode (yyyy-mm-dd hh:mm:ss): " << time_information3 << endl;
+       
+
     }
