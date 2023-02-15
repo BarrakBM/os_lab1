@@ -1,3 +1,5 @@
+    //Barrak Mandani
+    //Due 2/21/2023
     #include <iostream>
     #include <string> 
     #include <errno.h>
@@ -141,9 +143,13 @@
         cout << "The amount of time since system was last booted in the form (dd:hh:mm:ss): "<<days<<":" << seconds<< endl;
 
 
+        /*
 
 
+            3.   Amount of time that the CPU has spent in user mode and system mode
 
+
+        */
 
         //cpu
         xfile.open("/proc/stat");
@@ -169,19 +175,7 @@
         double system_mode = stod(cpu_vector[3]);//amount of time spent in idle process in seconds
 
         // int user_mode = stoi(cpu_vector[1]);
-        cout << "Time spent in user mode: " << cpu_vector[1]<< " Seconds" << endl;
-        cout << "Time spent in user mode: " << cpu_vector[3] << " Seconds" << endl;
+        cout << "Amount of time that the CPU has spent in user mode: " << cpu_vector[1]<< " Seconds" << endl;
+        cout << "Amount of time that the CPU has spent in system mode: " << cpu_vector[3] << " Seconds" << endl;
 
-        // time_t time3 = (time_t)cpu3;//system 
-        // struct tm *real_time3 = gmtime(&time3);
-        // strftime(time_information2, 200, "%Y-%m-%d %H:%M:%S", real_time3); // format the time
-        // cout << "Amount of time that the CPU has spent in system mode (yyyy-mm-dd hh:mm:ss): " << time_information2 << endl;
-
-        // //user mode
-        // time_t time4 = (time_t)cpu1;//user
-        // struct tm *real_time4 = gmtime(&time4);//user
-        // strftime(time_information3, 200, "%Y-%m-%d %H:%M:%S", real_time4); 
-        // cout << "Amount of time that the CPU has spent in user mode (yyyy-mm-dd hh:mm:ss): " << time_information3 << endl;
-       
-
-    }
+    }      
