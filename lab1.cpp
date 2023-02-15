@@ -105,7 +105,7 @@
         //use strftime to format the time
         strftime(time_information, 200, "%Y-%m-%d %H:%M:%S", real_time);
         // print the time
-        cout << "The time when system was last booted (yyyy-mm-dd hh:mm:ss): " << time_information << endl;
+        cout << "1.The time when system was last booted (yyyy-mm-dd hh:mm:ss): " << time_information << endl;
         //cout << test << endl;
 
 
@@ -143,7 +143,7 @@
         struct tm* second_time =gmtime(&time_seconds);
         char seconds[100];
         strftime(seconds, 100,"%H:%M:%S", second_time );
-        cout << "The amount of time since system was last booted in the form (dd:hh:mm:ss): "<<days<<":" << seconds<< endl;
+        cout << "2.The amount of time since system was last booted in the form (dd:hh:mm:ss): "<<days<<":" << seconds<< endl;
 
 
         /*
@@ -178,8 +178,8 @@
         double system_mode = stod(cpu_vector[3]);//amount of time spent in idle process in seconds
 
         // int user_mode = stoi(cpu_vector[1]);
-        cout << "Amount of time that the CPU has spent in user mode: " << cpu_vector[1]<< " Seconds" << endl;
-        cout << "Amount of time that the CPU has spent in system mode: " << cpu_vector[3] << " Seconds" << endl;
+        cout << "3a.Amount of time that the CPU has spent in user mode: " << cpu_vector[1]<< " Seconds" << endl;
+        cout << "3b.Amount of time that the CPU has spent in system mode: " << cpu_vector[3] << " Seconds" << endl;
 
         /*
 
