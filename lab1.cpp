@@ -145,32 +145,32 @@
 
 
 
-        // //cpu
-        // xfile.open("/proc/stat");
-        // while (getline(xfile, line2)) {
+        //cpu
+        xfile.open("/proc/stat");
+        while (getline(xfile, line2)) {
         
-        //     if(line2.find("cpu") == 0){
-        //         getline(xfile,test);
-        //         break;
-        //     }
-        // }
-        // xfile.close();
+            if(line2.find("cpu") == 0){
+                getline(xfile,test);
+                break;
+            }
+        }
+        xfile.close();
+        // separte it by space into vectors
+        istringstream ss(test);
+        vector<string> cpu_vector;
+        string s;
+        while ( getline( ss, s,' ') ) {
+            cpu_vector.push_back(s);
+            
+            
+        } 
+        
+        double user_mode = stod(cpu_vector[1]);//uptime of the system in seconds
+        double system_mode = stod(cpu_vector[3]);//amount of time spent in idle process in seconds
 
-      
-        
-        
-
-        
-       
-        // istringstream iss(test);
-        // vector<string> cpu_vector;
-        // string s;
-       
-
-        // //Amount of time that the CPU has spent in user mode and system mode
-        // double cpu3 = stod(cpu_vector[3]);//system mode
-        // double cpu1 = stod(cpu_vector[1]);//user mode
-        // //cout << cpu3 << endl;
+        // int user_mode = stoi(cpu_vector[1]);
+        cout << "Time spent in user mode: " << cpu_vector[1]<< " Seconds" << endl;
+        cout << "Time spent in user mode: " << cpu_vector[3] << " Seconds" << endl;
 
         // time_t time3 = (time_t)cpu3;//system 
         // struct tm *real_time3 = gmtime(&time3);
