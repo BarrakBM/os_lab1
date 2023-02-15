@@ -54,6 +54,7 @@
         ifstream infile;
         ifstream onfile;
         ifstream xfile; 
+        ifstream afile;
         double btime;
         //string uptime;
         double stat;
@@ -65,6 +66,8 @@
         string test;
         char strings[300];
         char *ptr;
+        string memory;
+        string memory2;
 
 
          /*
@@ -178,4 +181,26 @@
         cout << "Amount of time that the CPU has spent in user mode: " << cpu_vector[1]<< " Seconds" << endl;
         cout << "Amount of time that the CPU has spent in system mode: " << cpu_vector[3] << " Seconds" << endl;
 
+        /*
+
+
+            4.   The total amount of memory in the system and the amount of memory currently available
+
+
+        */
+
+       afile.open("/proc/meminfo");
+        while (getline(afile, line3)) {
+        
+            if(line3.find("MemTotal:") == 0){
+                
+                cout << line3 << endl;
+            }
+            if(line3.find("MemAvailable") == 0){
+                
+                cout << line3 << endl;
+            }
+        }
+        afile.close();
+        
     }      
