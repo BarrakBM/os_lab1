@@ -126,7 +126,8 @@
         /*
             separate the string by space and put the into vector
         */
-        istringstream is(line1);
+
+        istringstream is(line1); // stream line1 to different variables
         vector<string> uptime_vector;
         string v;
         while ( getline( is, v,' ') ) {
@@ -177,9 +178,20 @@
         double user_mode = stod(cpu_vector[1]);//uptime of the system in seconds
         double system_mode = stod(cpu_vector[3]);//amount of time spent in idle process in seconds
 
+        //usermode//
+        time_t time_seconds_user = (time_t)user_mode;//system 
+        struct tm* second_time_user =gmtime(&time_seconds_user);
+        char user_1[100];
+        strftime(user_1, 100,"%m:%d:%H:%M:%S", second_time_user );
+
+        //system mode//
+        time_t time_seconds_system = (time_t)system_mode;//system 
+        struct tm* second_time_system =gmtime(&time_seconds_system);
+        char system_1 [100];
+        strftime(system_1, 100,"%m:%d:%H:%M:%S", second_time_system );
         // int user_mode = stoi(cpu_vector[1]);
-        cout << "3a.Amount of time that the CPU has spent in user mode: " << cpu_vector[1]<< " Seconds" << endl;
-        cout << "3b.Amount of time that the CPU has spent in system mode: " << cpu_vector[3] << " Seconds" << endl;
+        cout << "3a.Amount of time that the CPU has spent in user mode(mm:dd:hh:mm:ss): " << user_1 << endl;
+        cout << "3b.Amount of time that the CPU has spent in system mode(mm:dd:hh:mm:ss): " << system_1 << endl;
 
         /*
 
